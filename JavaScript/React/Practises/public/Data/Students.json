@@ -1,0 +1,46 @@
+[
+    {
+        "firstname": "John",
+        "lastname": "Doe",
+        "age": 25,
+        "email": "john.doe@example.com",
+        "address": {
+            "street": "123 Main St",
+            "city": "Anytown",
+            "state": "CA",
+            "zip": "12345"
+        },
+        "courses": [
+            {
+                "name": "Mathematics",
+                "grade": "A"
+            },
+            {
+                "name": "English",
+                "grade": "B"
+            }
+        ]       
+    },
+    {
+        "firstname": "Jane",
+        "lastname": "Smith",
+        "age": 30,
+        "email": "jane.smith@example.com",
+        "address": {
+            "street": "456 Oak Ave",
+            "city": "Somewhere",
+            "state": "NY",
+            "zip": "67890"
+        },
+        "courses": [
+            {
+                "name": "Physics",
+                "grade": "A"
+            },
+            {
+                "name": "Chemistry",
+                "grade": "B"
+            }
+        ]       
+    }
+]
