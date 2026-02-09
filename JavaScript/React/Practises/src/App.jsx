@@ -4,6 +4,8 @@ import ReactUseState from './hooks/ReactUseState/index.jsx';
 import UseEffect from './hooks/UseEffect/index.jsx';
 import UseContext from './hooks/UseContext/index.jsx';
 import UseCallback from './hooks/UseCallback/index.jsx';
+import UseRef from './hooks/UseRef/index.jsx';
+import UseMemo from './hooks/UseMemo/index.jsx';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="useeffect" element={<UseEffect />} />
         <Route path="usecontext" element={<UseContext />} />
         <Route path="usecallback" element={<UseCallback />} />
+        <Route path="useMemo" element={<UseMemo />} />
+        <Route path="useRef" element={<UseRef />} />
       </Route>
     </Routes>
   );

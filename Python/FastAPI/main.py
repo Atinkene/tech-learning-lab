@@ -56,6 +56,29 @@ Students = [
                 "grade": "B"
             }
         ]       
+    },
+    {
+        "id": 2,
+        "firstname": "Alice",
+        "lastname": "Johnson",
+        "age": 22,
+        "email": "alice.johnson@example.com",
+        "address": {
+            "street": "789 Pine Rd",
+            "city": "Elsewhere",
+            "state": "TX",
+            "zip": "54321"
+        },
+        "courses": [
+            {
+                "name": "Biology",
+                "grade": "A"
+            },
+            {
+                "name": "Geography",
+                "grade": "B"
+            }
+        ]       
     }
 ]
 

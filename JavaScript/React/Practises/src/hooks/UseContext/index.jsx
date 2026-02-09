@@ -16,7 +16,7 @@ function ReactUseContext() {
 
     return (
       <div>
-        <h1 className="text-2xl font-bold">Context Value: {value}</h1>
+        <h1 className="text-2xl font-bold">We're in ChildComponent. Context Value is {value}</h1>
         <ChildComponent1 />
       </div>
     )
@@ -46,7 +46,7 @@ function ReactUseContext() {
     }, [])
 
     return (
-      <h1 className="text-2xl font-bold">Context Value: {value}</h1>
+      <h1 className="text-2xl font-bold">We're in ChildComponent2. Context Value is {value}</h1>
     )
   }
 
