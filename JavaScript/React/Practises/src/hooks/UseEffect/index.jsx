@@ -22,11 +22,12 @@ function ReactUseEffect() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen space-y-4">
+      <div className="h-96 w-full p-52">Massina</div>
       <h1 className="text-2xl font-bold">Student's info</h1>
         {data ? (
-            <div className="space-x-2 flex">
+            <div className="space-x-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {data.students.map((student, index) => (
-                    <div key={index} className="p-4 border rounded">
+                    <div key={index} className="p-4 border rounded animation-timeline">
                         <h2 className="text-lg font-semibold">{student.firstname}</h2>
                         <p>Age: {student.age}</p>
                         <p>Email: {student.email}</p>
@@ -34,7 +35,7 @@ function ReactUseEffect() {
                         <p>Courses:</p>
                         <ul className="list-disc list-inside">
                             {student.courses.map((course, courseIndex) => (
-                                <li key={courseIndex}>{course.name}: {course.grade}</li>
+                                <li key={courseIndex}>{course.name}: {course.grade}</li> 
                             ))}
                         </ul>
                     </div>
