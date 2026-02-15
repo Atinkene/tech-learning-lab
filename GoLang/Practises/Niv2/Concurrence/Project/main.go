@@ -51,8 +51,15 @@ func (turnOver *turnOver)workerPool (
 
 func main () {
 
+	startAt := time.Now()
+
+	defer func () {
+		endAt := time.Now()
+		fmt.Printf("Total time taken : %v\n", endAt.Sub(startAt))
+	}()
+
 	numWorkers := 3
-	numOrders := 1000
+	numOrders := 10
 	turnOver := &turnOver{
 		turnOverValue : rand.Float64() * 1000000000,
 	}
