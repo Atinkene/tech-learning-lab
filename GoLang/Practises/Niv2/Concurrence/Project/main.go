@@ -12,7 +12,7 @@ func (turnOver *turnOver)orderProcessing (order Order) float64 {
 	time.Sleep(200 * time.Millisecond)
 	finalAmount := order.amount * 1.18
 	turnOver.mu.Lock()
-	turnOver.turnOverValue += order.amount
+	turnOver.turnOverValue += finalAmount
 	turnOver.mu.Unlock()
 	return finalAmount
 
