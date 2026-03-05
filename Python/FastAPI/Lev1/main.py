@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from typing import Optional
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 app = FastAPI(
@@ -10,20 +10,21 @@ app = FastAPI(
 )
 
 
-# Create an Api that allows us to apply crud operations on items and users. We will use path parameters, query parameters, and request bodies.  
+# Create an Api that allows us to apply crud operations on users. We will use path parameters, query parameters, and request bodies.  
 
 
 class UserCreate(BaseModel):
-    name: str
-    email: str
+    name: str = Field(..., min_length=2, max_length=50, description="The name of the user")
+    email: EmailStr = Field(..., description="The email of the user", example="john.doe@example.com")
     role: Optional[str] = "user"
 
 
 class UserResponse(BaseModel):
     id: int
     name: str
-    email: str
+    email: EmailStr
     role: str
+
 
 users = [
     {
@@ -46,12 +47,12 @@ def root():
     return {"message": "Bienvenue dans FastAPI 🚀"}
 
 
-@app.get('/users')
+@app.get('/users', response_model=list[UserResponse])
 def get_users():
     return users
 
 
-@app.get('/users/{user_id}')
+@app.get('/users/{user_id}', response_model=UserResponse)
 def get_user(user_id: int):
     for u in users:
         if u["id"] == user_id:
@@ -61,12 +62,7 @@ def get_user(user_id: int):
 
 @app.post('/users')
 def create_user(user_create: UserCreate):
-    new_user = {
-        "id": len(users) + 1,
-        "name": user_create.name,
-        "email": user_create.email,
-        "role": user_create.role
-    }
+    new_user = {"id": len(users) + 1, **user_create.model_dump()}
     if  user_create.email in [user["email"] for user in users]:
         return {"message": "Email already exists"}, 400
     users.append(new_user)
