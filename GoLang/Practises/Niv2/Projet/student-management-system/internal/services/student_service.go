@@ -6,10 +6,12 @@
 package services
 
 import (
+	"strings"
+	"fmt"
 	"sync"
 	"time"
-	"github.com/massina/gestion-formation/internal/models"
-	"github.com/massina/gestion-formation/internal/storage"
+	"github.com/Atinkene/tech-learning-lab/GoLang/Practises/Niv2/student-management-system/internal/models"
+	"github.com/Atinkene/tech-learning-lab/GoLang/Practises/Niv2/student-management-system/internal/storage"
 )
 
 
@@ -26,8 +28,8 @@ import (
  */
 
 type StudentService struct {
-	storage Storage
-	cache   *Cache
+	storage storage.Storage
+	cache   *storage.Cache
 	mu	  sync.RWMutex
 }
 
@@ -36,7 +38,7 @@ type StudentService struct {
  * NewStudentService creates a new instance of StudentService with the provided storage and cache. It initializes the service with the necessary dependencies for managing student data.
  */
 
-func NewStudentService(storage Storage, cache *Cache) *StudentService {
+func NewStudentService(storage storage.Storage, cache *storage.Cache) *StudentService {
 	return &StudentService{
 		storage: storage,
 		cache:   cache,
@@ -130,11 +132,14 @@ func (s *StudentService) GetStudentByLevel(level string) ([]*models.Student, err
 	}
 
 	students, err := s.storage.GetAllStudents()
-	studentsByLevel []*models.Student
+	if err != nil {
+		return nil, err
+	}
+	var studentsByLevel []*models.Student
 
 	for _, student := range students {
-		if strings.EqualFold(student.Level, level) {
-			studentsByLevel := student
+		if strings.EqualFold(string(student.Level), level) {
+			studentsByLevel = append(studentsByLevel, student)
 		}
 	}
 
@@ -148,7 +153,7 @@ func (s *StudentService) GetStudentByLevel(level string) ([]*models.Student, err
  * GetStudentBySpecialization
  */
 
-func (s *StudentService) GetStudentBySpecialization(specialization Specialization) ([]*models.Student, error) {
+func (s *StudentService) GetStudentBySpecialization(specialization string) ([]*models.Student, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
@@ -158,15 +163,20 @@ func (s *StudentService) GetStudentBySpecialization(specialization Specializatio
 	}
 
 	students, err := s.storage.GetAllStudents()
-	studentsBySpecialization []*models.Student
+
+	if err != nil {
+		return nil, err
+	}
+
+	var studentsBySpecialization []*models.Student
 
 	for _, student := range students {
 		if strings.EqualFold(student.Specialization, specialization) {
-			studentsBySpecialization := student
+			studentsBySpecialization = append(studentsBySpecialization, student)
 		}
 	}
 
-	s.cache.Set("level" + level, studentsBySpecialization)
+	s.cache.Set("specialization" + specialization, studentsBySpecialization)
 
 	return studentsBySpecialization, nil
 

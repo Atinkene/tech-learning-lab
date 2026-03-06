@@ -11,15 +11,31 @@ import (
 	"time"
 )
 
+type TypeEval string
 
+const (
+	CA TypeEval = "CA"
+	PW TypeEval = "PW"
+	Exam TypeEval = "Exam"
+	Project TypeEval = "Project"
+)
+
+
+type StatusGrade string
+
+const (
+	Pass StatusGrade = "Pass"
+	Fail StatusGrade = "Fail"
+	Retake StatusGrade = "Retake"
+)
 /*
  * Grade represents a single grade for a course registration, including the type of evaluation, value, coefficient, and date.
  */
 
 type Grade struct {
 	ID            string    // Auto-generated
-	InscriptionID string    // Reference to Inscription
-	TypeEval      enum["CA", "PW", "Exam", "Project"]    // Evaluation type
+	RegistrationID string    // Reference to Registration
+	TypeEval      TypeEval    // Evaluation type
 	Valeur        float64   // Grade out of 20
 	Coefficient   float64   // Weight of the grade
 	DateEval      time.Time // Date of evaluation
@@ -32,11 +48,11 @@ type Grade struct {
 */
 
 type CourseResult struct {
-	InscriptionID string
+	RegistrationID string
 	CourseCode    string
 	Grades        []Grade
 	Average       float64
-	Status        enum["Pass", "Fail", "Retake"]
+	Status        StatusGrade
 }
 
 

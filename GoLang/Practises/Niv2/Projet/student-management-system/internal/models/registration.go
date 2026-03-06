@@ -12,6 +12,21 @@ import (
 	"time"
 )
 
+type StatusRegistration string
+
+const (
+	Pending StatusRegistration = "Pending"
+	Validated StatusRegistration = "Validated"
+	Abandoned StatusRegistration = "Abandoned"
+)
+
+type Semester int
+
+const (
+	Semester1 Semester = 1
+	Semester2 Semester = 2
+)
+
 
 /*
  * Registration represents a course registration in the formation management system, with details such as student ID, course ID, registration date, status, academic year, and semester.
@@ -22,9 +37,9 @@ type Registration struct {
 	StudentID    string    // Reference to Student
 	CourseID     string    // Reference to Course
 	RegistrationDate time.Time // Date of registration
-	Status       enum["pending", "approved", "rejected"]    // "en_cours", "validé", "abandonné"
+	Status       StatusRegistration    // "Pending", "Validated", "Abandoned"
 	Year         int       // Academic year (2024)
-	Semester     enum[1, 2]       // 1 or 2
+	Semester     Semester       // 1 or 2
 }	
 
 
@@ -54,10 +69,10 @@ func (r *Registration) Validate() error {
 
 
 /*
- * validate_Status checks if the registration status is valid. It ensures that the status is one of the allowed values ("pending", "approved", "rejected").
+ * validate_Status checks if the registration status is valid. It ensures that the status is one of the allowed values ("pending", "Validated", "Abandoned").
  */
 func (r *Registration) validate_Status() error {
-	if r.Status != "pending" && r.Status != "approved" && r.Status != "rejected" {
+	if r.Status != "pending" && r.Status != "Validated" && r.Status != "Abandoned" {
 		return fmt.Errorf("invalid status")
 	}
 	return nil
@@ -65,21 +80,21 @@ func (r *Registration) validate_Status() error {
 
 
 /*
- * Abandon sets the registration status to "rejected", indicating that the student has abandoned the course.
+ * Abandon sets the registration status to "Abandoned", indicating that the student has abandoned the course.
  */
 
 func (r *Registration) Abandon() error {
-	r.Status = "rejected"
+	r.Status = "Abandoned"
 	return nil
 }
 
 
 /*
- * IsActive checks if the registration is active, meaning its status is either "pending" or "approved".
+ * IsActive checks if the registration is active, meaning its status is either "pending" or "Validated".
  */
  
 func (r *Registration) IsActive() bool {
-	return r.Status == "pending" || r.Status == "approved"
+	return r.Status == "pending" || r.Status == "Validated"
 }
 
 

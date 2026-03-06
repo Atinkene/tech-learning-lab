@@ -7,12 +7,12 @@
 
 package storage
 
-import "github.com/massina/gestion-formation/internal/models"
+import 	"github.com/Atinkene/tech-learning-lab/GoLang/Practises/Niv2/student-management-system/internal/models"
 
 
-type Storage struct {
+type Storage interface {
 	SaveStudent(student *models.Student) error
-	GetStudent(id string) (*models.Student, error)
+	GetStudent(id string) ([]*models.Student, error)
 	GetAllStudents() ([]*models.Student, error)
 	DeleteStudent(id string) error
 

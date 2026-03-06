@@ -25,7 +25,7 @@ type Student struct {
 	Email              string    // Mandatory, valid format (xxx@esp.sn)
 	Phone              string    // Format: +221XXXXXXXXX
 	DateOfBirth        time.Time // Date of birth
-	Level              enum["L1", "L2", "L3", "M1", "M2"]    // L1, L2, L3, M1, M2
+	Level              Level    // L1, L2, L3, M1, M2
 	Specialization     string    // GI, RT, GM, GC, etc.
 	RegistrationDate   time.Time // Date of registration
 	Active             bool      // Active/inactive status

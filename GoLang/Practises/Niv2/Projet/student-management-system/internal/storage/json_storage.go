@@ -14,7 +14,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/massina/gestion-formation/internal/models"
+	"github.com/Atinkene/tech-learning-lab/GoLang/Practises/Niv2/student-management-system/internal/models"
 )
 
 type JSONStorage struct {
@@ -154,7 +154,7 @@ func (s *JSONStorage) DeleteStudent(id string) error {
  */
 
 
-func SaveCourse(course *models.Course) error {
+func (s *JSONStorage) SaveCourse(course *models.Course) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -162,7 +162,7 @@ func SaveCourse(course *models.Course) error {
 	return s.SaveData()
 }
 
-func GetCourse(id string) (*models.Course, error) {
+func (s *JSONStorage) GetCourse(id string) (*models.Course, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
@@ -173,7 +173,7 @@ func GetCourse(id string) (*models.Course, error) {
 	return course, nil
 }
 
-func GetAllCourses() ([]*models.Course, error) {
+func (s *JSONStorage) GetAllCourses() ([]*models.Course, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
@@ -184,7 +184,7 @@ func GetAllCourses() ([]*models.Course, error) {
 	return courses, nil
 }
 
-func DeleteCourse(id string) error {
+func (s *JSONStorage) DeleteCourse(id string) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -193,7 +193,7 @@ func DeleteCourse(id string) error {
 }	
 
 
-func SaveRegistration(registration *models.Registration) error {
+func (s *JSONStorage) SaveRegistration(registration *models.Registration) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -201,7 +201,7 @@ func SaveRegistration(registration *models.Registration) error {
 	return s.SaveData()
 }
 
-func GetRegistration(id string) (*models.Registration, error) {
+func (s *JSONStorage) GetRegistration(id string) (*models.Registration, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
@@ -212,7 +212,7 @@ func GetRegistration(id string) (*models.Registration, error) {
 	return registration, nil
 }
 
-func GetRegistrationsByStudent(studentID string) ([]*models.Registration, error) {
+func (s *JSONStorage) GetRegistrationsByStudent(studentID string) ([]*models.Registration, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
@@ -225,7 +225,7 @@ func GetRegistrationsByStudent(studentID string) ([]*models.Registration, error)
 	return registrations, nil
 }
 
-func GetRegistrationsByCourse(courseID string) ([]*models.Registration, error) {
+func (s *JSONStorage) GetRegistrationsByCourse(courseID string) ([]*models.Registration, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
@@ -244,7 +244,7 @@ func GetRegistrationsByCourse(courseID string) ([]*models.Registration, error) {
  */
 
 
-func SaveGrade(grade *models.Grade) error {
+func (s *JSONStorage) SaveGrade(grade *models.Grade) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -252,7 +252,7 @@ func SaveGrade(grade *models.Grade) error {
 	return s.SaveData()
 }
 
-func GetGradesByRegistration(registrationID string) ([]*models.Grade, error) {
+func (s *JSONStorage) GetGradesByRegistration(registrationID string) ([]*models.Grade, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 

@@ -5,9 +5,15 @@
 
  package services
 
+ import (
+    "sync"
+    "github.com/Atinkene/tech-learning-lab/GoLang/Practises/Niv2/student-management-system/internal/models"
+	"github.com/Atinkene/tech-learning-lab/GoLang/Practises/Niv2/student-management-system/internal/storage"
+
+ )
 
  type NotationService struct {
-    storage Storage
+    storage storage.Storage
     mu      sync.RWMutex
 }
 
@@ -21,7 +27,7 @@ func (s *NotationService) GenerateReportCard(studentID string, semester int) (*R
 type ReportCard struct {
     Student      *models.Student
     Semester      int
-    Results     []*models.ResultatCours
+    Results     []*models.CourseResult
     genAverage    float64
     TotalCredits  int
     Rank          int 

@@ -10,6 +10,26 @@ import (
 	"fmt"
 )
 
+type Credits int
+
+const (
+	Credit1 Credits = 1
+	Credit2 Credits = 2
+	Credit3 Credits = 3
+	Credit4 Credits = 4
+	Credit5 Credits = 5
+	Credit6 Credits = 6
+)
+
+type Level string
+
+const (
+	L1 Level = "L1"
+	L2 Level = "L2"
+	L3 Level = "L3"
+	M1 Level = "M1"
+	M2 Level = "M2"
+)
 
 /*
  * Course represents a course in the formation management system, with details such as ID, code, title, description, credits, semester, level, professor, maximum number of students, and current enrollment.
@@ -20,9 +40,9 @@ type Course struct {
 	Code        string    // Unique, format: CS101
 	Title       string    // Mandatory, min 5 characters
 	Description string    // Optional, max 500 characters
-	Credits     enum["1", "2", "3", "4", "5"]       // Number of credits (1-5)
+	Credits     Credits       // Number of credits (1-6)
 	Semester    int       // 1 or 2
-	Level       enum["L1", "L2", "L3", "M1", "M2"]    // L1, L2, L3, M1, M2
+	Level       Level   // L1, L2, L3, M1, M2
 	Professor   string    // Name of the professor
 	MaxStudents int       // Maximum number of students (20-100)
 	Enrolled    int       // Current number of enrolled students
@@ -113,7 +133,7 @@ func (c *Course) PrintInfo() {
 	fmt.Printf("Code: %s\n", c.Code)
 	fmt.Printf("Title: %s\n", c.Title)
 	fmt.Printf("Description: %s\n", c.Description)
-	fmt.Printf("Credits: %s\n", c.Credits)
+	fmt.Printf("Credits: %d\n", c.Credits)
 	fmt.Printf("Semester: %d\n", c.Semester)
 	fmt.Printf("Level: %s\n", c.Level)
 	fmt.Printf("Professor: %s\n", c.Professor)
