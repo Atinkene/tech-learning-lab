@@ -29,7 +29,15 @@ func NewCourseService(storage storage.Storage, cache *storage.Cache) *CourseServ
 }
 
 
-func (c *CourseService) CreateCourse (course *models.Course) error
-func (c *CourseService) GetCoursesByLevel (level string) ([]*models.Course, error)
-func (c *CourseService) GetAvailableCourses () ([]*models.Course, error)
-func (c *CourseService) GetRegistrationsStats () map[string]int
+func (c *CourseService) CreateCourse (course *models.Course) error {
+    return nil
+}
+func (c *CourseService) GetCoursesByLevel (level string) (/*[]*models.Course,*/ error) {
+    return nil
+}
+func (c *CourseService) GetAvailableCourses () (/*[]*models.Course, */error) {
+    return nil
+}
+func (c *CourseService) GetRegistrationsStats () /*map[string]int*/ error {
+    return nil
+}

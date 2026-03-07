@@ -18,11 +18,17 @@
 }
 
 
-func (s *NotationService) AddGrade(grade *models.Grade) error
+func (s *NotationService) AddGrade(grade *models.Grade) error {
+    return nil
+}
 
-func (s *NotationService) CalculateCourseResults(courseID string) ([]*models.CourseResult, error)
+func (s *NotationService) CalculateCourseResults(courseID string) (/*[]*models.CourseResult,*/ error) {
+    return nil
+}
 
-func (s *NotationService) GenerateReportCard(studentID string, semester int) (*ReportCard, error)
+func (s *NotationService) GenerateReportCard(studentID string, semester int) (/**ReportCard,*/ error) {
+    return nil
+}
 
 type ReportCard struct {
     Student      *models.Student

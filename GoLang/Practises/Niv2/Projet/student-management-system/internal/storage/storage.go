@@ -12,7 +12,7 @@ import 	"github.com/Atinkene/tech-learning-lab/GoLang/Practises/Niv2/student-man
 
 type Storage interface {
 	SaveStudent(student *models.Student) error
-	GetStudent(id string) ([]*models.Student, error)
+	GetStudent(id string) (*models.Student, error)
 	GetAllStudents() ([]*models.Student, error)
 	DeleteStudent(id string) error
 

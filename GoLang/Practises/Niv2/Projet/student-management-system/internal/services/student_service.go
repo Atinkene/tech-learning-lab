@@ -106,14 +106,20 @@ func (s *StudentService) SearchStudentByName(name string) ([]*models.Student, er
 	if found {
 		return cached.([]*models.Student), nil
 	}
-
-	students, err := s.storage.GetStudent(name)
+	var StudentByName  []*models.Student
+	students, err := s.storage.GetAllStudents()
 	if err != nil {
 		return nil, err
 	}
-
-	s.cache.Set("search:" + name, students)
-	return students, nil
+	
+	for _, student := range students {
+		studentName := student.FirstName + " " + student.FirstName 
+		if strings.Contains(studentName, name) {
+			StudentByName = append(StudentByName,student)
+		}
+	}
+	s.cache.Set("search:" + name, StudentByName)
+	return StudentByName, nil
 }
 
 
@@ -183,27 +189,60 @@ func (s *StudentService) GetStudentBySpecialization(specialization string) ([]*m
 }
 
 
-// func (s *EtudiantService) StatsByLevel() map[string]int      {
-// 	s.mu.RLock()
-// 	defer s.mu.RUnlock()
+// StatsByLevel calcule le nombre d’étudiants par niveau.
+func (s *StudentService) StatsByLevel() (map[string]int, error) {
+    s.mu.RLock()
+    defer s.mu.RUnlock()
 
-// 	students, err := s.storage.GetAllStudent()
-// 	return students, nil
+    students, err := s.storage.GetAllStudents()
+    if err != nil {
+        return nil, err
+    }
 
-// }
-// func (s *EtudiantService) StatsBySpecialization() map[string]int {
-// 	s.mu.RLock()
-// 	defer s.mu.RUnlock()
+    stats := make(map[string]int)
+    for _, st := range students {
+        if st == nil {
+            continue
+        }
+        stats[string(st.Level)]++
+    }
+    return stats, nil
+}
 
-// 	students, err := s.storage.GetAllStudent()
-// 	return students, nil
+// méthodes auxiliaires supplémentaires utilisées par d’autres tests éventuels.
+func (s *StudentService) StatsBySpecialization() (map[string]int, error) {
+    s.mu.RLock()
+    defer s.mu.RUnlock()
 
-// }
-// func (s *EtudiantService) ActiveStudentsStats() int {
-// 	s.mu.RLock()
-// 	defer s.mu.RUnlock()
+    students, err := s.storage.GetAllStudents()
+    if err != nil {
+        return nil, err
+    }
 
-// 	students, err := s.storage.GetAllStudent()
-// 	return students, nil
+    stats := make(map[string]int)
+    for _, st := range students {
+        if st == nil {
+            continue
+        }
+        stats[st.Specialization]++
+    }
+    return stats, nil
+}
 
-// }
+func (s *StudentService) ActiveStudentsStats() (int, error) {
+    s.mu.RLock()
+    defer s.mu.RUnlock()
+
+    students, err := s.storage.GetAllStudents()
+    if err != nil {
+        return 0, err
+    }
+
+    cnt := 0
+    for _, st := range students {
+        if st != nil && st.Active {
+            cnt++
+        }
+    }
+    return cnt, nil
+}
