@@ -1,0 +1,21 @@
+# Dépendances (trop lourd pour git)
+node_modules/
+
+# Fichiers de configuration sensibles (Contient tes mots de passe MariaDB)
+.env
+
+# Logs et rapports d'erreurss
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Dossiers système ou IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Dossiers de build (si tu en as)
+dist/
+build/
